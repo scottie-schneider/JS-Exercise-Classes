@@ -47,7 +47,7 @@ class Person {
     this.stomach = [];
   }
   eat(food){
-    if(this.stomach.length > 10){
+    if(this.stomach.length == 10){
       return;
     }
     this.stomach.push(food);
@@ -77,6 +77,31 @@ class Person {
 */
 
 class Car {
+  constructor(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(gallons){
+    return this.tank = this.tank + gallons;
+  }
+  drive(distance){
+    // what's the max distance we can travel on a tank?
+    let max = this.tank * this.milesPerGallon;
+    // if distance is achievable with current tank      
+    if(distance < max){
+      this.odometer = this.odometer + distance;
+      this.tank = this.tank - (distance/this.milesPerGallon);
+      return;
+    }     
+    // if distance is too far to handle with the tank capacity 
+    // update the odometer with the distance we CAN travel
+    this.odometer = this.odometer + max;    
+    this.tank = 0;
+    return `I ran out of fuel at ${this.odometer} miles!`;        
+    // return the string with the 'i ran out of fuel' message
+  }
 
 }
 
